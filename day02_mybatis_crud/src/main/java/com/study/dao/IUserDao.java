@@ -1,7 +1,10 @@
 package com.study.dao;
 
+import com.study.domain.QueryVo;
 import com.study.domain.User;
+import org.apache.ibatis.annotations.Select;
 
+import javax.management.Query;
 import java.util.List;
 
 public interface IUserDao {
@@ -20,5 +23,6 @@ public interface IUserDao {
 
     int findTotal(); // 查询总用户数
 
+    List<User> findUserByVo(QueryVo vo); // 根据queryVo中的条件查询用户
 
 }

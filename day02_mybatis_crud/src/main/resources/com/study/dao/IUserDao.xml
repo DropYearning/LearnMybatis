@@ -6,7 +6,7 @@
     <!--配置查询-->
     <!--配置时需要说清楚封装到哪里去-->
     <!--查询所有用户-->
-    <select id="findAll" resultType="User">
+    <select id="findAll" resultType="com.study.domain.User">
         select * from user
     </select>
 
@@ -50,5 +50,9 @@
         select count(id) from user;
     </select>
 
+    <!--根据QueryVo的条件查询用户-->
+    <select id="findUserByVo" parameterType="com.study.domain.QueryVo" resultType="com.study.domain.User">
+        select * from user where username like #{user.username}
+    </select>
 
 </mapper>
