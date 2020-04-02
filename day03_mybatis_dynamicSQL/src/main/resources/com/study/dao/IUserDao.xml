@@ -3,35 +3,21 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.study.dao.IUserDao">
+
+    <!-- 抽取出被重复使用的SQL语句-->
+    <sql id="defaultUser">
+        select * from user;
+    </sql>
+
+
     <!--配置查询-->
     <!--配置时需要说清楚封装到哪里去-->
     <!--查询所有用户-->
-    <select id="findAll" resultType="User">
-        select * from user
+    <select id="findAll" resultType="com.study.domain.User">
+        <!--使用include引入配置好的SQL语句-->
+        <include refid="defaultUser"></include>
+        <!-- select * from user -->
     </select>
-
-    <!--保存用户-->
-    <insert id="saveUser" parameterType="com.study.domain.User">
-        <!--配置插入操作后，获取插入数据的id -->
-        <!--keyProperty表示实体类的属性名 -->
-        <!--keyColumn表示数据表列名 -->
-        <selectKey keyProperty="id" keyColumn="id" resultType="int" order="AFTER">
-            select last_insert_id();
-        </selectKey>
-        insert into user(username, address, sex, birthday)values(#{username}, #{address}, #{sex}, #{birthday});
-    </insert>
-
-    <!--更新用户-->
-    <update id="updateUser" parameterType="com.study.domain.User">
-        update user set username=#{username}, address=#{address}, sex=#{sex}, birthday=#{birthday} where id=#{id};
-    </update>
-
-    <!-- 删除用户-->
-    <!--当id对应的方法只有一个参数的时候，SQL语句中只需要写一个任意的占位符即可-->
-    <delete id="deleteUser" parameterType="java.lang.Integer">
-
-        delete from user where id = #{anyword}
-    </delete>
 
     <!-- 根据id查询用户 -->
     <select id="findById" parameterType="INT" resultType="com.study.domain.User">
@@ -45,10 +31,51 @@
         select * from user where username like '%${value}%'
     </select>
 
-    <!-- 获取用户的总记录条数 -->
-    <select id="findTotal" resultType="int">
-        select count(id) from user;
+    <!--根据QueryVo的条件查询用户-->
+    <select id="findUserByVo" parameterType="com.study.domain.QueryVo" resultType="com.study.domain.User">
+        select * from user where username like #{user.username}
     </select>
 
+    <!--根据条件查询-->
+    <!--
+    where 1=1是sql语句条件逻辑判断表达式，
+    由于1=1成立，恒为真，该表达式1=1将始终返回"真"。
+    这种写法实际目的是为了获取逻辑值"True",其实诸如2=2, 1+2=3，'中'='中'等之类的写法都可以返回逻辑值"True"，
+    只不过1=1的运算开销更小，故被应用的最普遍。
+    -->
+<!--    <select id="findUserByCondition" resultType="com.study.domain.User" parameterType="com.study.domain.User">-->
+<!--        select * from user where 1=1-->
+<!--        <if test="username != null">-->
+<!--            and username = #{username}-->
+<!--        </if>-->
+<!--        <if test="sex != null">-->
+<!--            and sex = #{sex}-->
+<!--        </if>-->
+<!--    </select>-->
+
+    <!--使用where标签-->
+    <select id="findUserByCondition" resultType="com.study.domain.User" parameterType="com.study.domain.User">
+        select * from user
+        <where>
+            <if test="username != null">
+                and username = #{username}
+            </if>
+            <if test="sex != null">
+                and sex = #{sex}
+            </if>
+        </where>
+    </select>
+
+    <!--根据Queryvo中的Id集合查询用户列表-->
+    <select id="findUserInIds" resultType="com.study.domain.User" parameterType="queryvo">
+        select * from user
+        <where>
+            <if test="ids !=null and ids.size()>0">
+                <foreach collection="ids" open="and id in (" close=")" item="id" separator=",">
+                    #{id}
+                </foreach>
+            </if>
+        </where>
+    </select>
 
 </mapper>
