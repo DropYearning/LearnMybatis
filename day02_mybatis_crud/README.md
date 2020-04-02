@@ -1,4 +1,4 @@
-# LearnMybatis-day1-mybatis crud
+# LearnMybatis-day2-mybatis crud
 
 学习Mybatis框架
 
