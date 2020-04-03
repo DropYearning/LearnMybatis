@@ -5,6 +5,12 @@
 
 <!--mybatis的主配置文件-->
 <configuration>
+
+    <!--配置开启二级缓存-->
+    <settings>
+        <setting name="cacheEnabled" value="true"/>
+    </settings>
+
     <!--可以使用typeAliases配置别名，它只能配置domain中的类的别名-->
     <typeAliases>
         <!--所有配置好的别名都不区分大小写-->

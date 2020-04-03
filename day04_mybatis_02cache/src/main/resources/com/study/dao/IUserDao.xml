@@ -4,30 +4,23 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.study.dao.IUserDao">
 
-    <!--定义User的resultMap-->
-    <resultMap id="userAccountMap" type="user">
-        <id property="id" column="id"></id>
-        <result property="username" column="username"></result>
-        <result property="address" column="address"></result>
-        <result property="sex" column="sex"></result>
-        <result property="birthday" column="birthday"></result>
-        <!--配置user对象中的Accounts集合的映射(一对多)-->
-        <collection property="accounts" ofType="account">
-            <id property="id" column="aid"></id>
-            <result property="uid" column="uid"></result>
-            <result property="money" column="money"></result>
-        </collection>
-    </resultMap>
+    <!--配置User支持二级缓存-->
+    <cache/>
 
     <!--查询所有用户-->
-    <select id="findAll" resultMap="userAccountMap">
-        SELECT * from user u LEFT OUTER JOIN account a on u.id=a.UID;
+    <select id="findAll" resultType="user">
+        SELECT * from user
     </select>
 
     <!-- 根据id查询用户 -->
-    <select id="findById" parameterType="INT" resultType="com.study.domain.AccountUser">
+    <select id="findById" parameterType="INT" resultType="user" useCache="true">
         select * from user where id = #{anyword}
     </select>
+
+    <!-- 更新用户信息(只改了名字和地址) -->
+    <update id="updateUser" parameterType="user">
+        update user set username=#{username}, address=#{address} where id =#{id}
+    </update>
 
 
 </mapper>

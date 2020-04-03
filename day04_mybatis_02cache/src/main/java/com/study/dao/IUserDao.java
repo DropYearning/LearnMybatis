@@ -10,6 +10,7 @@ public interface IUserDao {
 
     User findById(Integer userId); // 按用户id查找
 
+    void updateUser(User user); // 更新用户
 
 
 }
