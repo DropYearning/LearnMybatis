@@ -1,4 +1,4 @@
-# LearnMybatis-day3-Mabatis多表查询之多对多
+# LearnMybatis-day3-Myabatis多表查询之多对多
 
 学习Mybatis框架
 

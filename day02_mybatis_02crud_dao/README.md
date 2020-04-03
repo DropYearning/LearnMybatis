@@ -1,4 +1,4 @@
-# LearnMybatis-day2-mybatis crud的dao实现
+# LearnMybatis-day2-Mybatis-crud的dao实现
 
 学习Mybatis框架
 

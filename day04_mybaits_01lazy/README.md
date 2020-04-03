@@ -1,4 +1,4 @@
-# LearnMybatis-day4-Mabatis 懒加载
+# LearnMybatis-day4-Mybatis 懒加载
 
 学习Mybatis框架
 

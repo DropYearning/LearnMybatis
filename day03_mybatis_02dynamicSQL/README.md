@@ -1,4 +1,4 @@
-# LearnMybatis-day3-动态SQL语句
+# LearnMybatis-day3-Mybatis-动态SQL语句
 
 学习Mybatis框架
 
