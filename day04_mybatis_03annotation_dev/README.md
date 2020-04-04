@@ -10,3 +10,4 @@
 - 在mybatis中针对crud一共有四个注解：`@SELECT,@INSERT,@UDPATE,@DELETE`
 - 若用了注解开发，则不应该在resources目录下创建dao.xml文件。否则不管是否用到xml配置文件，Mybatis都会报错
 - 
+
