@@ -26,6 +26,7 @@
 - ![vgVuFWK](https://i.imgur.com/vgVuFWK.png)
 - 如果一级缓存与数据库不一致了，Mybatis如何实现数据同步？
     - 一级缓存是 SqlSession 范围的缓存，当调用SqlSession的**修改，添加，删除，commit()，close()等方法**时，就会清空一级缓存。 
+    - ![amMD2QV](https://i.imgur.com/amMD2QV.png)
 
 ### Mybatis中的二级缓存
 - ![4cHOLSh](https://i.imgur.com/4cHOLSh.png)
@@ -33,6 +34,7 @@
     - 由同一个SqlSessionFactory对象创建的SqlSession共享其缓存。
 - **二级缓存中存放的数据不是对象**，读取**二级缓存时其实是用数据重新创建了一个对象**，并不是之前缓存的那个对象
 - **sqlSession必须commit()或者close()之后才会将数据保存到二级缓存中**
+- ![vUXLRnf](https://i.imgur.com/vUXLRnf.png)
 - 二级缓存的使用步骤：
     - 1、让Mybatis框架支持二级缓存（在SqlMapConfig.xml中配置Settings）
     - 2、在当前的映射文件支持二级缓存（IUserDao.xml中添加<cache/>标签）
